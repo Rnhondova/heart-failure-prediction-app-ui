@@ -37,21 +37,23 @@ model_endpoint = 'https:\\'
 
 
 
-def post_factors(URL,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,oldpeak,ca):
+def post_factors(URL,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,oldpeak,ca,slope):
     """ post image and return the response """
     
-    response = requests.post(URL, json={"sex"       :{sex}, 
-                                        "cp"        :{cp}, 
-                                        "fbs"       :{fbs}, 
-                                        "restecg"   :{restecg}, 
-                                        "exang"     :{exang}, 
-                                        "thal"      :{thal}, 
-                                        "age"       :{age}, 
-                                        "trestbps"  :{trestbps}, 
-                                        "chol"      :{chol}, 
-                                        "thalach"   :{thalach}, 
-                                        "oldpeak"   :{oldpeak},
-                                        "ca"        :{ca}})
+    response = requests.post(URL, json={"age"       :{"0":age},
+                                        "sex"       :{"0":sex}, 
+                                        "cp"        :{"0":cp},
+                                        "trestbps"  :{"0":trestbps},
+                                        "chol"      :{"0":chol}, 
+                                        "fbs"       :{"0":fbs}, 
+                                        "restecg"   :{"0":restecg},
+                                        "thalach"   :{"0":thalach}, 
+                                        "exang"     :{"0":exang},
+                                        "oldpeak"   :{"0":oldpeak},
+                                        "slope"     :{"0":slope},
+                                        "ca"        :{"0":ca}, 
+                                        "thal"      :{"0":thal}                                      
+                                        })
     return response 
 
 
@@ -83,23 +85,25 @@ with col1:
 
     thal = st.selectbox("Thal:", options=list(thalOptions.keys()), format_func=lambda x: thalOptions[x])
 
+    slope = st.selectbox("Slope of peak exercise ST segment:", options=list(slopeOptions.keys()), format_func=lambda x: slopeOptions[x])
+
 with col2:
-    age = st.slider('Age:', min_value=22, max_value=77)
+    age = st.slider('Age:', min_value=0, max_value=110)
 
     trestbps = st.slider('Resting blood pressure (in mm/Hg):', min_value=0, max_value=200)
 
-    chol = st.slider('Serum cholestoral (in mg/dl):', min_value=126, max_value=564)
+    chol = st.slider('Serum cholestoral (in mg/dl):', min_value=0, max_value=600)
 
-    thalach = st.slider('Maximum heart rate achieved:', min_value=71, max_value=202)
+    thalach = st.slider('Maximum heart rate achieved:', min_value=0, max_value=220)
 
-    oldpeak = st.slider('ST depression induced by exercise relative to rest:', min_value=0, max_value=7)
+    oldpeak = st.slider('ST depression induced by exercise relative to rest:', min_value=0, max_value=10)
 
     ca = st.select_slider('Number of major vessels colored by flourosopy', options=[0,1,2,3])
 
 try:
 
     with st.spinner(text='In progress'):
-        prediction = post_factors(model_endpoint,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,oldpeak,ca)
+        prediction = post_factors(model_endpoint,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,oldpeak,ca,slope)
 
     if prediction['prediction'] == 0:
         my_placeholder.text('No risk of heart failure detected!')
