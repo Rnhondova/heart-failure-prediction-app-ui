@@ -58,13 +58,14 @@ def post_factors(URL,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,old
 
 
 
-sexOptions = {0:"Female",1:"Male"}
-chestpainOptions = {0:"Typical angina", 1:"Atypical angina", 2:"Non-anginal pain", 3:"Asymptomatic"}
-boolOptions = {0:"False", 1:"True"}
-yesnoOptions = {0:"No", 1:"Yes"}
-restecgOptions = {0:"Normal", 1:"Having ST-T wave abnormality", 2:"Probable or definite left ventricular hypertrophy"}
-slopeOptions = {0:"Upsloping", 1:"Flat", 2:"Downsloping"}
-thalOptions = {0:"Normal", 1:"Fixed defect", 2:"Reversable defect"}
+sexOptions = ["Female","Male"]
+chestpainOptions = ["Typical angina", "Atypical angina", "Non-anginal pain", "Asymptomatic"]
+boolOptions = ["False", "True"]
+yesnoOptions = ["No", "Yes"]
+restecgOptions = ["Normal", "ST-T wave abnormality", "Left ventricular hypertrophy"]
+slopeOptions = ["Upsloping", "Flat", "Downsloping"]
+thalOptions = ["Normal", "Fixed defect", "Reversable defect"]
+fbsOptions = ["<120 mg/dl", ">120 mg/dl"]
 
 
 col1, col2 = st.beta_columns(2)
@@ -73,19 +74,19 @@ my_placeholder = st.empty()
 
 
 with col1:
-    sex = st.radio("Sex:", options=list(sexOptions.keys()), format_func=lambda x: sexOptions[x])
+    sex = st.radio("Sex:", options=sexOptions)
 
-    cp = st.selectbox("Select chest pain type:", options=list(chestpainOptions.keys()), format_func=lambda x: chestpainOptions[x])
+    cp = st.selectbox("Select chest pain type:", options=chestpainOptions)
 
-    fbs = st.selectbox("Fasting blood sugar > 120mg/dl?:", options=list(boolOptions.keys()), format_func=lambda x: boolOptions[x])
+    fbs = st.selectbox("Fasting blood sugar > 120mg/dl?:", options=fbsOptions)
 
-    restecg = st.selectbox("Resting electrocardiographic results:", options=list(restecgOptions.keys()), format_func=lambda x: restecgOptions[x])
+    restecg = st.selectbox("Resting electrocardiographic results:", options=restecgOptions)
 
-    exang = st.selectbox("Exercise induced angina:", options=list(boolOptions.keys()), format_func=lambda x: boolOptions[x])
+    exang = st.selectbox("Exercise induced angina:", options=boolOptions)
 
-    thal = st.selectbox("Thal:", options=list(thalOptions.keys()), format_func=lambda x: thalOptions[x])
+    thal = st.selectbox("Thal:", options=thalOptions)
 
-    slope = st.selectbox("Slope of peak exercise ST segment:", options=list(slopeOptions.keys()), format_func=lambda x: slopeOptions[x])
+    slope = st.selectbox("Slope of peak exercise ST segment:", options=slopeOptions)
 
 with col2:
     age = st.slider('Age:', min_value=0, max_value=110)
