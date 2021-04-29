@@ -33,7 +33,7 @@ expander_bar.markdown("""
 st.markdown('\n')
 st.markdown('\n')
 
-model_endpoint = 'https:\\'
+model_endpoint = 'https://cloud-final-project-311921.uc.r.appspot.com/predict'
 
 
 
@@ -105,9 +105,9 @@ try:
     with st.spinner(text='In progress'):
         prediction = post_factors(model_endpoint,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,oldpeak,ca,slope)
 
-    if prediction['prediction'] == 0:
+    if prediction.json()['prediction'][0] == "Not at Risk":
         my_placeholder.text('No risk of heart failure detected!')
-    elif prediction['prediction'] == 1:
+    elif prediction.json()['prediction'][0] == "At Risk":
         my_placeholder.text('High risk of heart failure detected!')
     
 except ValueError:
