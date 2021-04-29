@@ -82,7 +82,7 @@ with col1:
 
     restecg = st.selectbox("Resting electrocardiographic results:", options=restecgOptions)
 
-    exang = st.selectbox("Exercise induced angina:", options=boolOptions)
+    exang = st.selectbox("Exercise induced angina:", options=yesnoOptions)
 
     thal = st.selectbox("Thal:", options=thalOptions)
 
