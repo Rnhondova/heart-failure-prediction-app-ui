@@ -2,9 +2,10 @@
 
 <p align="center">
   <a href="#about">About</a> •
+  <a href="#front end">FrontEnd</a> •
+  <a href="#front end">Model Repository</a> •
   <a href="#installation">Installation</a> •
-  <a href="#deployment">Deployment</a> •
-  <a href="#front end">FrontEnd</a>
+  <a href="#deployment">Deployment</a> •  
 </p>
 
 ## About
