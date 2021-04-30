@@ -101,18 +101,21 @@ with col2:
 
     ca = st.select_slider('Number of major vessels colored by flourosopy', options=[0,1,2,3])
 
+st.markdown('\n')
+st.markdown('\n')
+
 try:
 
     with st.spinner(text='In progress'):
         prediction = post_factors(model_endpoint,sex,cp,fbs,restecg,exang,thal,age,trestbps,chol,thalach,oldpeak,ca,slope)
 
     if prediction.json()['prediction'][0] == "Not at Risk":
-        my_placeholder.text('No risk of heart failure detected!')
+        my_placeholder.markdown('<span style="color:green">**No risk of heart failure detected!**</span>', unsafe_allow_html=True)
     elif prediction.json()['prediction'][0] == "At Risk":
-        my_placeholder.text('High risk of heart failure detected!')
+        my_placeholder.markdown('<span style="color:red">**High risk of heart failure detected!**</span>', unsafe_allow_html=True)
     
 except ValueError:
-    my_placeholder.text('Could not make a prediction at this point! Please try again!')
+    my_placeholder.text('**Could not make a prediction at this point! Please try again!**')
 
 
 
